@@ -1,36 +1,88 @@
 import styled from "styled-components"
+import { Link } from "react-router-dom"
+import { DEVICE_BREAKPOINTS } from "../../styles/devicesBreakpoints"
 
 export const Container = styled.header`
   grid-area: header;
   display: flex;
-  position: sticky;
-  top: 0px;
-  z-index: 999;
+  justify-content: center;
   width: 100%;
   height: 10.4rem;
-  justify-content: center;
-  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_600};
+
+  top: 0px;
+  z-index: 2;
+
+  background-color: ${({ theme }) => theme.COLORS.BACKGROUND_700};
 `
+
 export const Content = styled.div`
   display: flex;
   align-items: center;
+  gap: 3.2rem;
 
-  .bar {
-    display: block;
-    width: 2.5rem;
-    height: 0.3rem;
-    margin: 0.5rem auto;
-    background-color: ${({ theme }) => theme.COLORS.WHITE};
+  > button {
+    display: none;
   }
 
+  .menu {
+    cursor: pointer;
+    width: 2.4rem;
+    height: 2.8rem;
+    color: ${({ theme }) => theme.COLORS.WHITE};
+
+    display: flex;
+    align-items: center;
+    align-content: center;
+  }
+
+  .reactIcon {
+    display: none;
+  }
+
+  > svg {
+    display: none;
+  }
+
+  @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+    width: 100%;
+    padding: 0 clamp(2rem, 6vw, 12.3rem);
+
+    .menu {
+      display: none;
+    }
+
+    .reactIcon {
+      display: initial;
+      cursor: pointer;
+      width: 3.2rem;
+      height: 3.2rem;
+      color: ${({ theme }) => theme.COLORS.WHITE};
+    }
+
+    .reactIcon:hover {
+      color: ${({ theme }) => theme.COLORS.WHITE_100};
+      cursor: pointer;
+    }
+
+    > button {
+      display: flex;
+      width: clamp(35rem, 37vw, 40rem);
+      padding: 0.1rem 1rem;
+    }
+
+    > svg {
+      display: block;
+      width: 5rem;
+      height: 5rem;
+    }
+  }
 `
 
 export const Logo = styled.div`
   display: flex;
   align-items: center;
   gap: 0.8rem;
-  padding: 4rem ;
-  
+
   h1 {
     font-size: 2.1rem;
   }
@@ -38,8 +90,8 @@ export const Logo = styled.div`
   span {
     font-size: 1.2rem;
     color: ${({ theme }) => theme.COLORS.BLUE_100};
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400; 
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
     display: flex;
     align-items: center;
   }
@@ -47,6 +99,18 @@ export const Logo = styled.div`
   .logo {
     gap: 0.8rem;
     display: flex;
+    align-items: center;
+  }
+
+  @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: 0;
+
+    h1 {
+      width: 14.6rem;
+    }
   }
 `
 
@@ -72,5 +136,30 @@ export const Pedidos = styled.div`
     height: 2rem;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.COLORS.RED};
+  }
+
+  @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+    display: none;
+  }
+`
+
+export const NewDish = styled(Link)`
+  display: none;
+
+  @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+    background-color: ${({ theme }) => theme.COLORS.RED};
+    color: ${({ theme }) => theme.COLORS.WHITE};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4.8rem;
+    border: 0;
+    border-radius: 0.5rem;
+    display: flex;
+    width: clamp(32rem, 37vw, 21.6rem);
+    padding: 0.1rem 1rem;
+
+    font-weight: 500;
+    font-size: 1.4rem;
   }
 `
