@@ -25,7 +25,9 @@ export const Container = styled.div`
     }
   }
 
-  > svg {
-    margin-left: 1.6rem;
+  input:focus {
+    border: 1px solid #82F3FF;
+    box-shadow: 0 0 10px #82F3FF;
+    border-radius: 0.8rem;
   }
 `
