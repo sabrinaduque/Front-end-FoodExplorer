@@ -36,7 +36,7 @@ export const CarouselContainer = styled.div`
       left: -2px;
       top: 21px;
       align-items: center;
-      width: 20.0rem;
+      width: 13rem;
       background: linear-gradient(to right, #000a0f, rgba(0, 7, 10, 0.5), transparent);
     }
 
@@ -68,7 +68,7 @@ export const CarouselContainer = styled.div`
 
   @media (min-width: ${DEVICE_BREAKPOINTS.XL}) {
     gap: 4.7rem;
-    justify-content: center;
+    
     .buttons {
       button {
         width: 2.0rem;
@@ -78,6 +78,7 @@ export const CarouselContainer = styled.div`
       .reactIconLeft {
         left: -13px;
         top: 23px;
+        width: 14rem;
       }
 
       .reactIconRight {
