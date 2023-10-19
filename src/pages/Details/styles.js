@@ -74,6 +74,26 @@ export const Content = styled.div`
       span {
         font-size: 2.2rem;
       }
+
+      .counter {
+      width: fit-content;
+      padding: 0.4rem 0.8rem;
+      font-family: "Poppins", sans-serif;
+      color: ${({ theme }) => theme.COLORS.WHITE};
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      span {
+        font-size: 1.6rem;
+        color: ${({ theme }) => theme.COLORS.WHITE};
+      }
+
+      svg {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+    }
     }
   }
 

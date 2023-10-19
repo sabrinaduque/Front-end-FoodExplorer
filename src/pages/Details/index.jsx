@@ -1,16 +1,62 @@
 import { Container, Content, NewDish } from "./styles"
-import { Link } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { Header } from "../../components/Header"
 import { Footer } from "../../components/Footer"
+import { ButtonText } from "../../components/ButtonText"
+import { FiMinus, FiPlus } from "react-icons/fi"
 import { Button } from "../../components/Button"
 import { Ingredients } from "../../components/Ingredients"
-import { Counter } from "../../components/Counter"
 import { PiCaretLeftBold, PiReceipt } from "react-icons/pi"
-import saladaRavanello from "../../assets/dishes/mainDishes/SaladaRavanello.png"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { api } from "../../services/api"
+import { useAuth } from "../../hooks/auth"
+import { useCart } from "../../hooks/cart"
 
 export function Details() {
-  const [user, setUser] = useState({ isAdmin: true })
+  const [data, setData] = useState(null)
+  const params = useParams()
+  const { user } = useAuth()
+  const { handleAddDishToCart, cart } = useCart()
+  const [quantity, setQuantity] = useState(1)
+  const [lastQuantity, setLastQuantity] = useState(0)
+  let finalQuantity = parseInt(lastQuantity) + parseInt(quantity)
+
+  const imageURL = data && `${api.defaults.baseURL}files/${data.image}`
+
+
+  const increase = () => {
+    if (quantity > 19) {
+      alert("Erro: A quantidade máxima é de 20 unidades")
+      return;
+    }
+    setQuantity(count => count + 1);
+  };
+
+  const decrease = () => {
+    if (quantity < 1) {
+      alert("Erro: A quantidade mínima é 1 unidade")
+      return;
+    }
+    setQuantity(count => count - 1);
+  };
+
+  useEffect(() => {
+    if (cart.quantity) {
+      setLastQuantity(cart.quantity);
+    } else {
+      setLastQuantity(0);
+    }
+  }, [cart])
+
+
+  useEffect(() => {
+    async function fetchDish() {
+      const response = await api.get(`/dishes/${params.id}`)
+      setData(response.data)
+    }
+
+    fetchDish()
+  }, [])
 
   return (
     <Container>
@@ -20,41 +66,52 @@ export function Details() {
           <PiCaretLeftBold />
           voltar
         </Link>
+        {
+          data &&
+          <div>
+            <img src={imageURL} alt="Imagem do prato" />
 
-        <div>
-          <img src={saladaRavanello} alt="" />
+            <div className="infos">
+              <h2>{data.title}</h2>
+              <p>
+                {data.description}
+              </p>
 
-          <div className="infos">
-            <h2>Salada Ravanello</h2>
-            <p>
-              Rabanetes, folhas verdes e molho agridoce salpicados com gergelim.
-            </p>
+              <div className="ingredients">
+                {
+                  data.ingredients.map(ingredient => (
+                    <Ingredients
+                      key={String(ingredient.id)}
+                      title={ingredient.name}
+                    />
+                  ))
+                }
+              </div>
 
-            <div className="ingredients">
-              <Ingredients title="alface" />
-              <Ingredients title="cebola" />
-              <Ingredients title="pão naan" />
-              <Ingredients title="pepino" />
-              <Ingredients title="rabanete" />
-              <Ingredients title="tomate" />
+              {user.isAdmin ? (
+                <div className="confirm">
+                  <NewDish to="/newDish"> Novo prato </NewDish>
+                </div>
+              ) : (
+                <div className="confirm">
+                  <div className="counter">
+                    <ButtonText icon={FiMinus} onClick={decrease} />
+                    <span>{quantity.toString().padStart(2, "0")}</span>
+                    <ButtonText icon={FiPlus} onClick={increase} />
+                  </div>
+                  <Button
+                    className="request"
+                    icon={PiReceipt}
+                    title={`pedir ∙ R$ ${data.price * quantity}`}
+                    onClick={() => {
+                      handleAddDishToCart(finalQuantity)
+                    }}
+                  />
+                </div>
+              )}
             </div>
-
-            {user.isAdmin ? (
-              <div className="confirm">
-                <NewDish to="/new"> Novo prato </NewDish>
-              </div>
-            ) : (
-              <div className="confirm">
-                <Counter />
-                <Button
-                  className="request"
-                  icon={PiReceipt}
-                  title={"pedir ∙ R$ 25,00"}
-                />
-              </div>
-            )}
           </div>
-        </div>
+        }
       </Content>
       <Footer />
     </Container>
