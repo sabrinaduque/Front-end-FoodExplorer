@@ -3,11 +3,25 @@ import { Header } from "../../components/Header"
 import { Footer } from "../../components/Footer"
 import { Carousel } from "../../components/Carousel"
 import macarrons from "../../assets/macarrons.png"
+import { useEffect, useState } from "react"
+import { api } from "../../services/api"
 
 export function Home() {
+  const [search, setSearch] = useState("")
+  const [dishes, setDishes] = useState([])
+
+  useEffect(() => {
+    async function fetchDishes() {
+      const response = await api.get(`/dishes?title=${search}`)
+      setDishes(response.data)
+    }
+
+    fetchDishes()
+  }, [search])
+
   return (
     <Container>
-      <Header />
+      <Header setNewSearch={setSearch} />
       <Content>
         <div className="introducion">
           <div className="macarrons">
@@ -22,17 +36,17 @@ export function Home() {
 
         <div className="cards">
           <span>Pratos principais</span>
-          <Carousel />
+          <Carousel cards={dishes.filter(dish => dish.category == "dishes")} />
         </div>
 
         <div className="cards">
           <span>Sobremesas</span>
-          <Carousel />
+          <Carousel cards={dishes.filter(dish => dish.category == "dessert")} />
         </div>
 
         <div className="cards">
           <span>Drinks</span>
-          <Carousel />
+          <Carousel cards={dishes.filter(dish => dish.category == "drinks")} />
         </div>
       </Content>
       <Footer />
