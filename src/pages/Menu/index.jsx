@@ -25,7 +25,7 @@ export function Menu() {
         />
         {user.isAdmin ? (
           <>
-            <Link to="/new">Novo prato</Link>
+            <Link to="/newDish">Novo prato</Link>
             <Link to="/">Sair</Link>
           </>
         ) : (
