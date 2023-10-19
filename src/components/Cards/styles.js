@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { DEVICE_BREAKPOINTS } from "../../styles/devicesBreakpoints";
+import styled from "styled-components"
+import { Link } from "react-router-dom"
+import { DEVICE_BREAKPOINTS } from "../../styles/devicesBreakpoints"
 
 export const Container = styled.div`
   display: flex;
@@ -44,6 +44,26 @@ export const Container = styled.div`
       font-size: 1.6rem;
     }
 
+    .counter {
+      width: fit-content;
+      padding: 0.4rem 0.8rem;
+      font-family: "Poppins", sans-serif;
+      color: ${({ theme }) => theme.COLORS.WHITE};
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      span {
+        font-size: 1.6rem;
+        color: ${({ theme }) => theme.COLORS.WHITE};
+      }
+
+      svg {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+    }
+
     button {
       display: flex;
       flex-direction: row-reverse;
@@ -53,6 +73,10 @@ export const Container = styled.div`
         width: 1.2rem;
       }
     }
+  }
+
+  .request {
+    height: 3.1rem;
   }
 
   @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
@@ -71,16 +95,7 @@ export const Container = styled.div`
     .buttonsControllers {
       display: flex;
       gap: 1.6rem;
-
-      span {
-        font-size: 2rem;
-      }
-
-      svg {
-        width: 24px;
-        height: 24px;
-      }
-
+      
       .request {
         height: 3.5rem;
       }
