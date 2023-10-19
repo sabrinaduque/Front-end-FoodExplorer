@@ -36,8 +36,11 @@ export const Form = styled.form`
       margin: 2.4rem 0;
     }
   }
-  .button {
-    button {
+
+  .configButtons {
+    display: flex;
+    gap: 3.2rem;
+    .save {
       background-color: ${({ theme }) => theme.COLORS.PINK};
     }
   }
@@ -84,7 +87,7 @@ export const Form = styled.form`
       margin: 3.2rem 0;
     }
 
-    .buttons {
+    .configButtons {
       display: flex;
       gap: 3.2rem;
 
@@ -124,7 +127,7 @@ export const Form = styled.form`
       gap: 3.2rem;
       margin: 3.2rem 0;
     }
-    .buttons {
+    .configButtons {
       display: flex;
       gap: 3.2rem;
       justify-content: flex-end;
