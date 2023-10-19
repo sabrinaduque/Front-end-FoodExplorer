@@ -1,5 +1,4 @@
-import { createGlobalStyle } from "styled-components";
-import { DEVICE_BREAKPOINTS } from "./devicesBreakpoints";
+import { createGlobalStyle } from "styled-components"
 
 export default createGlobalStyle`
   * {
@@ -10,10 +9,6 @@ export default createGlobalStyle`
 
   :root {
     font-size: 62.5%;
-/* 
-    @media (min-width: ${DEVICE_BREAKPOINTS.MD}){
-      font-size: 2rem ;
-    }   */
   }
 
   body {
@@ -26,6 +21,12 @@ export default createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     outline: none;
+  }
+
+  textarea:focus {
+    border: 1px solid #82F3FF;
+    box-shadow: 0 0 10px #82F3FF;
+    border-radius: 0.8rem;
   }
 
   button {
