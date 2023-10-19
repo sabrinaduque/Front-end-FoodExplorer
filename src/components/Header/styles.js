@@ -8,7 +8,7 @@ export const Container = styled.header`
   justify-content: center;
   width: 100%;
   height: 10.4rem;
-
+  position: sticky;
   top: 0px;
   z-index: 2;
 
@@ -20,8 +20,10 @@ export const Content = styled.div`
   align-items: center;
   gap: 3.2rem;
 
-  > button {
-    display: none;
+  input:focus {
+    border: 1px solid #82f3ff;
+    box-shadow: 0 0 10px #82f3ff;
+    border-radius: 0.8rem;
   }
 
   .menu {
@@ -38,8 +40,7 @@ export const Content = styled.div`
   .reactIcon {
     display: none;
   }
-
-  > svg {
+  .orders {
     display: none;
   }
 
@@ -51,29 +52,33 @@ export const Content = styled.div`
       display: none;
     }
 
-    .reactIcon {
-      display: initial;
-      cursor: pointer;
-      width: 3.2rem;
-      height: 3.2rem;
-      color: ${({ theme }) => theme.COLORS.WHITE};
-    }
-
-    .reactIcon:hover {
-      color: ${({ theme }) => theme.COLORS.WHITE_100};
-      cursor: pointer;
-    }
-
-    > button {
+    .orders {
       display: flex;
-      width: clamp(35rem, 37vw, 40rem);
-      padding: 0.1rem 1rem;
-    }
+      align-items: center;
 
-    > svg {
-      display: block;
-      width: 5rem;
-      height: 5rem;
+      > button {
+        width: clamp(14rem, 37vw, 16rem);
+        padding: 0.1rem 1rem;
+        background: none;
+      }
+
+      .icon {
+        display: flex;
+        align-items: center;
+        border: none;
+        width: fit-content;
+        > svg {
+          width: 2rem;
+          height: 2rem;
+          color: ${({ theme }) => theme.COLORS.WHITE};
+        }
+      }
+
+      > svg {
+        display: block;
+        width: 5rem;
+        height: 5rem;
+      }
     }
   }
 `
@@ -161,5 +166,25 @@ export const NewDish = styled(Link)`
 
     font-weight: 500;
     font-size: 1.4rem;
+  }
+`
+
+export const Logout = styled(Link)`
+  display: none;
+
+  @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+    display: flex;
+    .reactIcon {
+      display: initial;
+      cursor: pointer;
+      width: 3.2rem;
+      height: 3.2rem;
+      color: ${({ theme }) => theme.COLORS.WHITE};
+    }
+
+    .reactIcon:hover {
+      color: ${({ theme }) => theme.COLORS.WHITE_100};
+      cursor: pointer;
+    }
   }
 `

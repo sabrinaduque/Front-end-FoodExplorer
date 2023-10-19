@@ -1,18 +1,24 @@
-import { Container, Content, Logo, Pedidos, NewDish } from "./styles"
-
+import { Container, Content, Logo, Pedidos, NewDish, Logout } from "./styles"
 import { PiReceipt } from "react-icons/pi"
-import { FiMenu, FiSearch, FiLogOut } from "react-icons/fi"
+import { FiMenu, FiLogOut } from "react-icons/fi"
 import logo from "../../assets/logos/logoHeader.svg"
-
+import { TbRefresh } from "react-icons/tb";
 import { Input } from "../Input"
 import { Button } from "../Button"
-
 import { Link } from "react-router-dom"
 import { useEffect, useState } from "react"
-
-export function Header() {
-  const [user, setUser] = useState({ isAdmin: false })
+import { useAuth } from "../../hooks/auth"
+import { useCart } from "../../hooks/cart"
+export function Header({ setNewSearch }) {
   const [screenSm, setsScreenSm] = useState(window.innerWidth < 768)
+  const { signOut, user } = useAuth()
+  const { cart, handleResetCart } = useCart();
+  const [search, setSearch] = useState("")
+
+  const setValueSearch = (value) => {
+    setSearch(value)
+    setNewSearch(value)
+  }
 
   useEffect(() => {
     function handleResize() {
@@ -54,7 +60,7 @@ export function Header() {
             <div className="pedidos">
               <Pedidos>
                 <PiReceipt />
-                <span>0</span>
+                <span>{cart.quantity}</span>
               </Pedidos>
             </div>
           </>
@@ -65,19 +71,23 @@ export function Header() {
             <Input
               className="inputDesk"
               placeholder="Busque por pratos ou ingredientes"
-              icon={FiSearch}
+              value={search}
+              onChange={(e) => setValueSearch(e.target.value)}
             />
           </>
         )}
         {user.isAdmin ? (
-          <NewDish to="/new"> Novo prato </NewDish>
+          <NewDish to="/newDish"> Novo prato </NewDish>
         ) : (
-          <Button icon={PiReceipt} title={"Pedidos (0)"} />
+          <div className="orders">
+            <button className="icon" onClick={handleResetCart} ><TbRefresh /></button>
+            <Button icon={PiReceipt} title={`Pedidos (${cart.quantity})`} />
+          </div>
         )}
 
-        <Link>
+        <Logout onClick={signOut}>
           <FiLogOut className="reactIcon" />
-        </Link>
+        </Logout>
       </Content>
     </Container>
   )
