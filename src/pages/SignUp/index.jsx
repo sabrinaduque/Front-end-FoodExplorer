@@ -10,26 +10,34 @@ export function SignUp() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
+  function handleBack() {
+    navigate(-1)
+  }
+
   function handleSignup() {
-    if(!name || !email || !password) {
+    if (!name || !email || !password) {
       return alert("Preencha todos os campos!")
     }
 
-    api.post("/users", { name, email, password})
-    .then(() => {
-      alert("Usuários cadastrado com sucesso!")
-      navigate("/")
-    })
-    .catch(error => {
-      if(error.response){
-        alert(error.response.data.message)
-      }else {
-        alert("Não foi possível cadastrar o usuário!")
-      }
-    })
+    setLoading(true)
+
+    api.post("/users", { name, email, password })
+      .then(() => {
+        alert("Usuários cadastrado com sucesso!")
+        navigate(-1)
+        setLoading(false)
+      })
+      .catch(error => {
+        if (error.response) {
+          alert(error.response.data.message)
+        } else {
+          alert("Não foi possível cadastrar o usuário!")
+        }
+        setLoading(false)
+      })
   }
 
   return (
@@ -52,31 +60,37 @@ export function SignUp() {
 
         <div className="inputs">
           <span>Seu nome</span>
-          <Input 
-            placeholder="Ex: Maria da Silva" 
-            type="text" 
+          <Input
+            placeholder="Ex: Maria da Silva"
+            type="text"
             onChange={e => setName(e.target.value)}
           />
 
           <span>Email</span>
-          <Input 
-            placeholder="Ex: exemplo@exemplo.com.br" 
-            type="text" 
+          <Input
+            placeholder="Ex: exemplo@exemplo.com.br"
+            type="text"
             onChange={e => setEmail(e.target.value)}
           />
 
           <span>Senha</span>
-          <Input 
-            placeholder="No mínimo 6 caracteres" 
-            type="password" 
+          <Input
+            placeholder="No mínimo 6 caracteres"
+            type="password"
             onChange={e => setPassword(e.target.value)}
           />
         </div>
 
-        <Button title="Criar conta" onClick={handleSignup} />
+        <Button
+          title={loading ? "Cadastrando" : "Criar conta"}
+          onClick={handleSignup}
+          disabled={loading}
+        />
 
         <div className="text">
-          <Link to="/"> Já tenho uma conta </Link>
+          <Link onClick={handleBack}>
+            Já tenho uma conta
+          </Link>
         </div>
       </Form>
     </Container>

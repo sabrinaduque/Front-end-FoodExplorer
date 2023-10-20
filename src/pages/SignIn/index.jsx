@@ -10,10 +10,10 @@ export function SignIn() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const { signIn } = useAuth()
+  const { signIn, loading } = useAuth();
 
   function handleSignIn() {
-    signIn({email, password})
+    signIn({ email, password })
   }
   return (
     <Container>
@@ -48,7 +48,11 @@ export function SignIn() {
           />
         </div>
 
-        <Button title="Entrar" onClick={handleSignIn} />
+        <Button
+          title={loading ? "Entrando" : "Entrar"}
+          onClick={handleSignIn}
+          disabled={loading}
+        />
 
         <div className="text">
           <Link to="/register"> Criar Conta </Link>
