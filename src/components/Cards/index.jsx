@@ -59,7 +59,7 @@ export function Cards(data) {
 
           <p>{dish.description}</p>
 
-          <span>R$ {dish.price}</span>
+          <span>R$ {parseFloat(dish.price).toFixed(2).replace(".", ",")}</span>
         </div>
       ) : (
         <div className="card">
@@ -71,7 +71,7 @@ export function Cards(data) {
 
           <p>{dish.description}</p>
 
-          <span>R$ {dish.price}</span>
+          <span>R$ {parseFloat(dish.price).toFixed(2).replace(".", ",")}</span>
 
           <div className="buttonsControllers">
             <div className="counter">

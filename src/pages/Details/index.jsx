@@ -1,5 +1,5 @@
 import { Container, Content, NewDish } from "./styles"
-import { Link, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Header } from "../../components/Header"
 import { Footer } from "../../components/Footer"
 import { ButtonText } from "../../components/ButtonText"
@@ -19,10 +19,14 @@ export function Details() {
   const { handleAddDishToCart, cart } = useCart()
   const [quantity, setQuantity] = useState(1)
   const [lastQuantity, setLastQuantity] = useState(0)
-  let finalQuantity = parseInt(lastQuantity) + parseInt(quantity)
+  let finalQuantity = parseFloat(lastQuantity) + parseFloat(quantity)
 
   const imageURL = data && `${api.defaults.baseURL}files/${data.image}`
+  const navigation = useNavigate()
 
+  function handleBack() {
+    navigation(-1)
+  }
 
   const increase = () => {
     if (quantity > 19) {
@@ -62,10 +66,7 @@ export function Details() {
     <Container>
       <Header />
       <Content>
-        <Link to="/">
-          <PiCaretLeftBold />
-          voltar
-        </Link>
+        <ButtonText icon={PiCaretLeftBold} title="voltar" onClick={handleBack} />
         {
           data &&
           <div>
@@ -102,7 +103,7 @@ export function Details() {
                   <Button
                     className="request"
                     icon={PiReceipt}
-                    title={`pedir ∙ R$ ${data.price * quantity}`}
+                    title={`pedir ∙ R$ ${(parseFloat(data.price) * quantity).toFixed(2).replace(".", ",")}`}
                     onClick={() => {
                       handleAddDishToCart(finalQuantity)
                     }}

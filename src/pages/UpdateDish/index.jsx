@@ -3,10 +3,11 @@ import { Header } from "../../components/Header"
 import { Footer } from "../../components/Footer"
 import { IngredientsItens } from "../../components/IngredientsItens"
 import { Button } from "../../components/Button"
+import { ButtonText } from "../../components/ButtonText"
 import { Input } from "../../components/Input"
 import { Textarea } from "../../components/Textarea"
 import { PiUploadSimple, PiCaretLeftBold } from "react-icons/pi"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/auth"
 import { api } from "../../services/api"
@@ -18,12 +19,16 @@ export function UpdateDish() {
   const [category, setCategory] = useState("")
   const [ingredients, setIngredients] = useState([])
   const [newIngredient, setNewIngredient] = useState("")
-  const params = useParams()
+  const [loading, setLoading] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
   const [data, setData] = useState(null)
   const { user } = useAuth()
+  const params = useParams()
+  const navigation = useNavigate()
 
-
-  const navigate = useNavigate()
+  function handleBack() {
+    navigation(-1)
+  }
 
   const [image, setImage] = useState()
 
@@ -82,7 +87,6 @@ export function UpdateDish() {
     }
 
     for (const value of Object.values(fields)) {
-      debugger
       if (value.rule) {
         return value.errorMessage
       }
@@ -98,6 +102,7 @@ export function UpdateDish() {
       alert(errorMessage)
       return
     }
+    setLoading(true)
 
     const data = {
       title,
@@ -123,8 +128,8 @@ export function UpdateDish() {
 
     await api.put(`/dishes/${params.id}`, formData, config)
 
-    navigate("/")
-
+    setLoading(false);
+    handleBack()
   }
 
   useEffect(() => {
@@ -148,6 +153,7 @@ export function UpdateDish() {
 
     if (isConfirm) {
       await api.delete(`/dishes/${params.id}`)
+      handleBack()
     } else {
       return
     }
@@ -156,13 +162,10 @@ export function UpdateDish() {
   return (
     <Container>
       <Header />
-      {user.isAdmin && data ?
+      {user.isAdmin && data &&
         <Form autoComplete="off">
           <header>
-            <Link to="/">
-              <PiCaretLeftBold />
-              voltar
-            </Link>
+            <ButtonText icon={PiCaretLeftBold} title="voltar" onClick={handleBack} />
             <h1>Editar Prato</h1>
           </header>
 
@@ -266,12 +269,21 @@ export function UpdateDish() {
           </div>
 
           <div className="configButtons">
-            <Button className="delete" title={"Excluir prato"} onClick={handleRemoveDish} />
-            <Button className="save" title={"Salvar alterações"} onClick={handleUpdateDish} />
+            <Button
+              className="delete"
+              title={loadingDelete ? "Excluindo prato" : "Excluir prato"}
+              onClick={handleRemoveDish}
+              disabled={loadingDelete}
+            />
+
+            <Button
+              className="save"
+              title={loading ? "Salvando alterações" : "Salvar alterações"}
+              onClick={handleUpdateDish}
+              disabled={loadingDelete}
+            />
           </div>
         </Form>
-        :
-        <></>
       }
       <Footer />
     </Container>

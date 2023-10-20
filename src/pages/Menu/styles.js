@@ -42,7 +42,7 @@ export const Content = styled.div`
   grid-area: content;
   padding: 3.6rem 2.8rem 0;
 
-  a {
+  button, a {
     padding: 1rem;
     width: 100%;
     margin-top: 3.6rem;

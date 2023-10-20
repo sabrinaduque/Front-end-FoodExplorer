@@ -18,7 +18,7 @@ export const Content = styled.div`
   grid-area: content;
   padding: 2rem 5rem 3.3rem;
 
-  > a {
+  > button {
     display: flex;
     width: fit-content;
     font-size: 2.4rem;

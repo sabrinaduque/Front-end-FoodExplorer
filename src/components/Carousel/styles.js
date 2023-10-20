@@ -47,8 +47,8 @@ export const CarouselContainer = styled.div`
       top: 21px;
       align-items: center;
       width: 16.8rem;
-      background: linear-gradient(to left, transparent, #000a0f, #00070a, transparent
-      );
+      background: linear-gradient(to left, #000a0f, rgba(0, 7, 10, 0.5), transparent);
+      
     }
   }
 

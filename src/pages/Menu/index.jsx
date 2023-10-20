@@ -3,18 +3,27 @@ import { AiOutlineClose } from "react-icons/ai"
 import { Input } from "../../components/Input"
 import { Footer } from "../../components/Footer"
 import { FiSearch } from "react-icons/fi"
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useAuth } from "../../hooks/auth"
+import { ButtonText } from "../../components/ButtonText"
+import { Link, useNavigate } from "react-router-dom"
 
 export function Menu() {
-  const [user, setUser] = useState({ isAdmin: false })
+  const { signOut, user } = useAuth()
+  const navigation = useNavigate()
+
+  function handleBack() {
+    navigation(-1)
+  }
+
+  function handleSignOut() {
+    navigation("/")
+    signOut()
+  }
 
   return (
     <Container>
       <header>
-        <Link to="/">
-          <AiOutlineClose />
-        </Link>
+        <ButtonText icon={AiOutlineClose} onClick={handleBack} />
         <span>Menu</span>
       </header>
 
@@ -26,10 +35,16 @@ export function Menu() {
         {user.isAdmin ? (
           <>
             <Link to="/newDish">Novo prato</Link>
-            <Link to="/">Sair</Link>
+            <ButtonText
+              onClick={handleSignOut}
+              title="Sair"
+            />
           </>
         ) : (
-          <Link to="/">Sair</Link>
+          <ButtonText
+            onClick={handleSignOut}
+            title="Sair"
+          />
         )}
       </Content>
       <Footer />

@@ -5,15 +5,22 @@ import logo from "../../assets/logos/logoHeader.svg"
 import { TbRefresh } from "react-icons/tb";
 import { Input } from "../Input"
 import { Button } from "../Button"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { useAuth } from "../../hooks/auth"
 import { useCart } from "../../hooks/cart"
+
 export function Header({ setNewSearch }) {
   const [screenSm, setsScreenSm] = useState(window.innerWidth < 768)
   const { signOut, user } = useAuth()
   const { cart, handleResetCart } = useCart();
   const [search, setSearch] = useState("")
+  const navigation = useNavigate()
+
+  function handleSignOut(){
+    navigation("/")
+    signOut()
+  }
 
   const setValueSearch = (value) => {
     setSearch(value)
@@ -62,10 +69,10 @@ export function Header({ setNewSearch }) {
                 <PiReceipt />
                 <span>{cart.quantity}</span>
               </Pedidos>
+              <button className="mobalIconReset" onClick={handleResetCart} ><TbRefresh /></button>
             </div>
           </>
         )}
-
         {!screenSm && (
           <>
             <Input
@@ -85,7 +92,7 @@ export function Header({ setNewSearch }) {
           </div>
         )}
 
-        <Logout onClick={signOut}>
+        <Logout onClick={handleSignOut}>
           <FiLogOut className="reactIcon" />
         </Logout>
       </Content>

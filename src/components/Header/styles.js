@@ -40,6 +40,25 @@ export const Content = styled.div`
   .reactIcon {
     display: none;
   }
+  .pedidos {
+    display: flex;
+    gap: 1.5rem;
+
+    .mobalIconReset {
+      display: flex;
+      align-items: center;
+      border: none;
+      width: fit-content;
+      background: none;
+
+      > svg {
+        width: 2.5rem;
+        height: 2.5rem;
+        color: ${({ theme }) => theme.COLORS.WHITE};
+      }
+    }
+  }
+
   .orders {
     display: none;
   }
@@ -49,6 +68,10 @@ export const Content = styled.div`
     padding: 0 clamp(2rem, 6vw, 12.3rem);
 
     .menu {
+      display: none;
+    }
+
+    .pedidos {
       display: none;
     }
 

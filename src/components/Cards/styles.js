@@ -61,6 +61,7 @@ export const Container = styled.div`
       svg {
         width: 1.4rem;
         height: 1.4rem;
+        z-index: 1;
       }
     }
 
@@ -68,9 +69,11 @@ export const Container = styled.div`
       display: flex;
       flex-direction: row-reverse;
       font-size: 1.4rem;
+      z-index: 1;
 
       svg {
         width: 1.2rem;
+        z-index: 1;
       }
     }
   }
@@ -122,6 +125,7 @@ export const Container = styled.div`
         font-size: 2.4rem;
         font-weight: 500;
         color: ${({ theme }) => theme.COLORS.WHITE_100};
+        z-index: 1;
       }
 
       .buttonsControllers {
