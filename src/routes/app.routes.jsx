@@ -5,7 +5,7 @@ import { Home } from "../pages/Home"
 import { Menu } from "../pages/Menu"
 import { Details } from "../pages/Details"
 import { UpdateDish } from "../pages/UpdateDish"
-
+import { Error } from "../pages/Error"
 
 export function AppRoutes() {
   return (
@@ -15,6 +15,7 @@ export function AppRoutes() {
       <Route path="/details/:id" element={<Details />} />
       <Route path="/update/:id" element={<UpdateDish />} />
       <Route path="/menu" element={<Menu />} />
+      <Route path="*" element={<Error />} />
     </Routes>
   )
 }
