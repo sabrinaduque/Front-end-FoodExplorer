@@ -6,10 +6,21 @@ import macarrons from "../../assets/macarrons.png"
 import { useEffect, useState } from "react"
 import { api } from "../../services/api"
 
+const categorys = {
+  dishes: "Pratos Principais",
+  dessert: "Sobremesas",
+  drinks: "Bebidas"
+}
+
 export function Home() {
   const [search, setSearch] = useState("")
   const [dishes, setDishes] = useState([])
-
+  
+  function getUniqueCategories() {
+    return Object.keys(categorys).filter(category => dishes.find(dish => dish.category === category))
+  }
+  
+  
   useEffect(() => {
     async function fetchDishes() {
       const response = await api.get(`/dishes?title=${search}`)
@@ -18,7 +29,7 @@ export function Home() {
 
     fetchDishes()
   }, [search])
-
+  
   return (
     <Container>
       <Header setNewSearch={setSearch} />
@@ -34,20 +45,12 @@ export function Home() {
           </div>
         </div>
 
-        <div className="cards">
-          <span>Pratos principais</span>
-          <Carousel cards={dishes.filter(dish => dish.category == "dishes")} />
-        </div>
-
-        <div className="cards">
-          <span>Sobremesas</span>
-          <Carousel cards={dishes.filter(dish => dish.category == "dessert")} />
-        </div>
-
-        <div className="cards">
-          <span>Drinks</span>
-          <Carousel cards={dishes.filter(dish => dish.category == "drinks")} />
-        </div>
+        {getUniqueCategories().map(category => (
+          <div key={category} className="cards">
+            <span>{categorys[category]}</span>
+            <Carousel cards={dishes.filter(dish => dish.category === category)} />
+          </div>
+        ))}
       </Content>
       <Footer />
     </Container>
