@@ -90,13 +90,13 @@ export const CarouselContainer = styled.div`
 `
 
 export const Card = styled.div`
-  width: 52%;
+  width: 50%;
 
-  @media (min-width: ${DEVICE_BREAKPOINTS.XL}) {
-    width: 20%;
+  @media (min-width: ${DEVICE_BREAKPOINTS.MD}) {
+    width: 35%;
   }
 
   @media (min-width: ${DEVICE_BREAKPOINTS.LG}) {
-    width: 30%;
+    width: 25%;
   }
 `

@@ -122,7 +122,7 @@ export const Container = styled.div`
       }
 
       a {
-        font-size: 2.4rem;
+        font-size: 2.1rem;
         font-weight: 500;
         color: ${({ theme }) => theme.COLORS.WHITE_100};
         z-index: 1;
