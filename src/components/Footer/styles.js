@@ -2,10 +2,8 @@ import styled from "styled-components"
 import { DEVICE_BREAKPOINTS } from "../../styles/devicesBreakpoints"
 
 export const Container = styled.footer`
-  grid-area: footer;
   height: 7.7rem;
   width: 100%;
-
   display: flex;
   align-items: center;
   padding: 2.4rem 2.7rem;
