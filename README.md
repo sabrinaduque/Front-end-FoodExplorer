@@ -62,7 +62,6 @@ As seguintes tecnologias foram empregadas na criação deste projeto:
 - [ReactJs](https://reactjs.org)
 - [SQLite](https://www.sqlite.org/index.html)
 - [Styled Components](https://styled-components.com/)
-- [Swiper](https://swiperjs.com/)
 - [Vite](https://vitejs.dev/)
 
 ___
